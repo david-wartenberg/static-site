@@ -1,4 +1,4 @@
 __pycache__/
-src/test_htmlnode.py
-src/test_textnode.py
-src/example_htmlnode.py
+/src/test_htmlnode.py
+/src/test_textnode.py
+/src/example_htmlnode.py
