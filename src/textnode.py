@@ -51,11 +51,20 @@ def split_nodes_delimiter(old_nodes: list[TextNode], delimiter: str, text_type: 
         case _:
             raise ValueError("unsupported delimiter")
     
-    return_nodes = []
+    tagged_text = []
     for node in old_nodes:
-        split_text = [txt for txt in node.text.split(delimiter) if txt != ""]
-        delimiter_count = node.text.count(delimiter)
+        splits = node.text.split(delimiter)
+        d_idx = [1 if i % 2 == 1 else 0 for i in range(len(splits))]
+        tagged_text.extend(tuple(zip(d_idx, splits)))
     
+    new_nodes = []
+    for i, v in tagged_text:
+        if v == "":
+            continue
+        t_type = TextType.TEXT
+        if i == 1:
+            t_type = text_type
+        new_nodes.append(TextNode(v, t_type))
     ## this doesn't handle for multiple iterations of the delimiter. One instance yields three items, two instances yields four items, three instances
 
-    return return_nodes
+    return new_nodes
